@@ -457,6 +457,95 @@ main {
     left: 540px;
     z-index: 110;
 }
+
+#damage1{
+    display: none;
+    position: absolute;
+    top: 180px;
+    left: 84px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+
+
+#damage2{
+    display: none;
+    position: absolute;
+    top: 180px;
+    left: 266px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+
+#damage3{
+    display: none;
+    position: absolute;
+    top: 180px;
+    left: 436px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+
+#damage4{
+    display: none;
+    position: absolute;
+    top: 180px;
+    left: 606px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+
+#damage5{
+    display: none;
+    position: absolute;
+        top: 400px;
+    left: 84px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+#damage6{
+    display: none;
+    position: absolute;
+    top: 400px;
+    left: 266px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+#damage7{
+    display: none;
+    position: absolute;
+    top: 400px;
+    left: 436px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+#damage8{
+    display: none;
+    position: absolute;
+    top: 400px;
+    left: 606px;
+    font-size: 60px;
+    z-index: 111;
+    color: red;
+    text-shadow: 2px -1px 2px rgb(0, 0, 0);
+}
+
+
+
 /*---------------------------------KEYFRAMES-----------------------------*/
 .toPosition1 {
     /*display: inline-block;*/
@@ -1299,4 +1388,29 @@ main {
 }
 /*-----------------------------------------------------------------------*/
 
-
+.damage{
+    display: block;
+    animation: damage;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes damage    {
+    0%{
+        transform: translateY( 0px);
+        /*transform: translateY( 235px);*/
+        z-index: 111;
+    }
+   /*20%{*/
+        /*transform: translateY( 0px);*/
+    /*}*/
+    30%{
+        opacity:1;
+    }
+    100%{
+        display: none;
+        transform: translateY( 100px);
+        opacity: 0;
+        z-index: 111;
+    }
+}
