@@ -1,0 +1,1302 @@
+@font-face {
+    font-family: oi;
+    src: url("RAVIE.eot?") format("eot");
+    src: url("RAVIE.woff") format("woff"),
+    url("RAVIE.ttf") format("truetype"),
+    url("RAVIE.svg#Ravie") format("svg");
+
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    box-sizing: border-box;
+    text-align: center;
+    font-family: oi, Arial, Helvetica, sans-serif;
+}
+
+.fight-card {
+    /*position: relative;*/
+    /*top: -50px;*/
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 150px;
+    height: 100%;
+    /*border: 2px dashed;*/
+    /*box-shadow: 0px 0px 10px #ffffec;*/
+}
+
+.fight-card-name {
+    font-weight: 100;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+    font-size: 18px;
+    position: relative;
+    top: -15px;
+    color: #fafbe6;
+
+}
+
+.rating-star-img {
+    width: 15px;
+    padding: 0 2px;
+    height: 15px;
+    margin: 0;
+
+}
+
+.rating-stars-container {
+    position: relative;
+    top: 0px;
+    min-height: 25px;
+    z-index: 112;
+}
+
+.card-state-container {
+    bottom: -121px;
+    position: relative;
+    left: 0px;
+}
+
+.card-stats-container {
+    font-size: 21px;
+    position: relative;
+
+}
+
+#fight-card1-container {
+    background: url("imgs/card-back.jpg");
+    background-size: 150px 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.attack {
+    text-shadow: -1px -1px 2px #060606, 1px 1px 2px black;
+    color: white;
+    display: block;
+    background: url(imgs/attack.png);
+    background-size: 31px 23px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-left: 10px;
+    position: relative;
+    left: -58px;
+    top: 4px;
+    font-size: 16px;
+}
+
+.health {
+    text-shadow: -1px -1px 2px #060606, 1px 1px 2px black;
+    color: white;
+    position: relative;
+    padding-bottom: 2px;
+    right: -58px;
+    bottom: 21px;
+    padding-top: 2px;
+    display: block;
+    background: url(imgs/heart.png);
+    min-height: 19px;
+    height: 24px;
+    background-size: 33px 28px;
+    background-position: center;
+    font-size: 17px;
+    background-repeat: no-repeat;
+}
+
+.hero {
+    width: 150px;
+    height: 200px;
+    margin: 10px;
+}
+
+.fight-cards {
+    display: none;
+    position: absolute;
+    transform: scale(0.8);
+    top: -154px;
+    z-index: 110;
+    left: 804px;
+    width: 150px;
+    height: 200px;
+    margin: 10px;
+    box-shadow: 0px 0px 10px #ffffec;
+    overflow: hidden;
+}
+
+#player-cards, #opponent-cards {
+    display: flex;
+    position: relative;
+}
+
+#opponent-cards {
+    position: relative;
+    top: -40px;
+    padding-left: 20px;
+    padding-top: 30px;
+
+}
+
+#player-cards {
+    margin-top: 100px;
+    padding-left: 20px;
+    /*perspective: 1000px;*/
+}
+
+main {
+    border: 3px solid black;
+    width: 1100px;
+    height: 700px;
+    margin: 0 auto;
+    background: url("imgs/hell-bg.gif");
+    background-size: 1100px 700px;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 2;
+    overflow: hidden;
+}
+
+#main-container {
+    border: 3px solid black;
+    background: black;
+    width: 1103px;
+    height: 705px;
+    margin: 0 auto;
+    overflow:hidden;
+}
+
+.energy {
+    width: 5px;
+    height: 5px;
+}
+
+.deck-card-energy-container {
+    position: absolute;
+}
+
+#fight-section {
+    -webkit-box-shadow: 0px 14px 8px -12px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 14px 8px -12px rgba(255, 255, 255, 1);
+    box-shadow: 0px 14px 8px -12px rgba(255, 255, 255, 1);
+    overflow: hidden;
+    width: 1100px;
+    height: 630px;
+    position: absolute;
+
+}
+
+.hideWhenFaceOff {
+    display: block;
+}
+
+#player-deck {
+    margin-right: 46px;
+    position: relative;
+    width: 300px;
+    float: right;
+    top: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#opponent-hero-frame, #player-hero-frame {
+    box-shadow: 0px 0px 10px #ffffec;
+    margin-right: 20px;
+    margin-left: 20px;
+    position: relative;
+    top: 51px;
+    background: url(imgs/hero-frame.jpg);
+    background-size: 172px 222px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#opponent-hero-container, #player-hero-container {
+    position: relative;
+    /*top: -50px;*/
+}
+
+#opponent-hero-container .fight-card, #player-hero-container .fight-card {
+    box-shadow: 0px 0px 0px #ffffec;
+}
+
+.opponent-hero-health, .player-hero-health {
+    text-shadow: -1px -1px 2px #060606, 1px 1px 2px black;
+    color: white;
+    position: relative;
+    padding-bottom: 2px;
+    right: -56px;
+    bottom: 33px;
+    display: block;
+    background: url(imgs/heart.png);
+    background-size: 40px 31px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.opponent-hero-energy, .player-hero-energy {
+    text-shadow: -1px -1px 2px #060606, 1px 1px 2px black;
+    color: white;
+    position: relative;
+    padding-bottom: 2px;
+    right: 50px;
+    bottom: 2px;
+    display: block;
+    background: url(imgs/energy.gif);
+    background-size: 65px 38px;
+    background-position: 45px;
+    background-repeat: no-repeat;
+}
+
+.opponent-card-back {
+    width: 120px;
+    height: 160px;
+    box-shadow: 0px 0px 10px #ffffec;
+    margin-bottom: 12px;
+}
+
+#opponent-card-back-container {
+    width: 120px;
+    position: absolute;
+    height: 160px;
+    top: 157px;
+    left: 833px;
+}
+
+.opponent-cards-left {
+    position: absolute;
+    width: 300px;
+    font-size: 23px;
+    top: 330px;
+    text-align: center;
+    right: 63px;
+    background: -webkit-linear-gradient(#000000, #b7b8b1, #030303);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.player-card-back {
+    position: relative;
+    width: 120px;
+    height: 160px;
+    box-shadow: 0px 0px 10px #ffffec;
+    top: 0px;
+
+}
+
+#player-card-back-container {
+    width: 120px;
+    position: absolute;
+    height: 160px;
+    top: 20px;
+    left: 832px;
+
+}
+
+#player-card-back2-container {
+    width: 120px;
+    position: absolute;
+    height: 160px;
+    top: 20px;
+    left: 832px;
+    z-index: 0;
+}
+
+.player-cards-left {
+    height: 35px;
+    font-size: 23px;
+    margin-bottom: 30px;
+    position: absolute;
+    width: 300px;
+    top: -27px;
+    right: 63px;
+    text-align: center;
+    background: -webkit-linear-gradient(#000000, #b7b8b1, #030303);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#player-card-back-container .rating-stars-container {
+    position: relative;
+    top: 41px;
+    z-index: 1;
+    min-height: 25px;
+}
+
+#player-card-back-container .fight-card-name {
+    font-weight: 100;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    position: relative;
+    top: 27px;
+    z-index: 1;
+    color: #fafbe6;
+}
+
+#player-card-back-container .rating-star-img {
+    width: 14px;
+    padding: 0;
+    height: 14px;
+    margin: 0;
+}
+
+#player-card-back-container .attack {
+    left: -50px;
+    top: 3px;
+    font-size: 15px;
+    background-size: 25px 21px;
+    padding-bottom: 5px;
+}
+
+#player-card-back-container .health {
+    right: -43px;
+    top: -22px;
+    bottom: 60px;
+    font-size: 15px;
+    background-size: 29px 24px;
+}
+
+#endTurn {
+    pointer-events: none;
+    position: relative;
+    top: -520px;
+    left: 470px;
+    pointer-events: none;
+    z-index: 1;
+    font-size: 20px;
+    font-family: oi;
+    background: -webkit-linear-gradient(#e1ff2c, #fdf3dd);
+    border: none;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    outline: none;
+}
+
+.blood-stain1 {
+    opacity: 0.01;
+    position: absolute;
+    width: 157px;
+    height: 200px;
+    top: -5px;
+    left: -1px;
+    z-index: 111;
+}
+
+#clock {
+    pointer-events: none;
+    position: absolute;
+    top: 16px;
+    left: 970px;
+    width: 100px;
+}
+
+#fire-down {
+    position: relative;
+    width: 1100px;
+    height: 50px;
+    overflow: hidden;
+    top: -50px;
+    left: -10px;
+    z-index: 110;
+}
+
+#fire-up {
+    position: relative;
+    width: 1120px;
+    height: 70px;
+    overflow: hidden;
+    top: -785px;
+    transform: rotateX(180deg);
+    left: -10px;
+    z-index: 110;
+}
+
+#fire-left {
+    position: relative;
+    width: 815px;
+    height: 50px;
+    overflow: hidden;
+    top: -517px;
+    transform: rotateZ(90deg);
+    left: -540px;
+    z-index: 110;
+}
+
+#fire-right {
+    position: relative;
+    width: 885px;
+    height: 50px;
+    overflow: hidden;
+    top: -646px;
+    transform: rotateZ(270deg);
+    left: 540px;
+    z-index: 110;
+}
+/*---------------------------------KEYFRAMES-----------------------------*/
+.toPosition1 {
+    /*display: inline-block;*/
+    animation: toPosition1;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes toPosition1 {
+    0% {
+        transform: rotateX(180deg) translateY(-150px) scale(0.8);
+        /*transform: translateY(50px)*/
+    }
+    /*40% {*/
+    /*transform:rotateX(180deg) translateY(-150px) scale(0.8);*/
+    /*!*transform: translateY(50px)*!*/
+    /*}*/
+    40% {
+        transform: translateY(0px) scale(1.5) rotateX(360deg);
+        z-index: 222;
+    }
+
+    50% {
+        transform: translateY(0px) scale(1.5) rotateX(360deg);
+        z-index: 222;
+    }
+
+    100% {
+        transform: translateY(315px) rotateX(360deg) scale(0.65) translateX(-162px);
+    }
+}
+
+.toPosition2 {
+
+    animation: toPosition2;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes toPosition2 {
+    0% {
+        transform: rotateX(180deg) translateY(-150px) scale(0.8);
+
+        /*transform: translateY(50px)*/
+    }
+    40% {
+
+        transform: translateY(0px) rotateX(360deg) scale(1.5);
+        z-index: 222;
+    }
+
+    50% {
+        transform: translateY(0px) scale(1.5) rotateX(360deg);
+        z-index: 222;
+    }
+
+    100% {
+        transform: translateY(315px) rotateX(360deg) scale(0.65) translateX(2px);
+    }
+}
+
+.toPosition3 {
+
+    animation: toPosition3;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes toPosition3 {
+    0% {
+        transform: rotateX(180deg) translateY(-150px) scale(0.8);
+
+        /*transform: translateY(50px)*/
+    }
+    40% {
+        transform: translateY(0px) rotateX(360deg) scale(1.5);
+        z-index: 222;
+    }
+
+    50% {
+        transform: translateY(0px) scale(1.5) rotateX(360deg);
+        z-index: 222;
+    }
+
+    100% {
+        transform: translateY(315px) rotateX(360deg) scale(0.65) translateX(167px);
+    }
+}
+/*-----------------------------------------------------------------------*/
+.moveToHand1to1 {
+    pointer-events: none;
+    animation-name: moveToHand1to1;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand1to1 {
+    0% {
+        transform: translate(-106px, 259px) scale(0.65);
+    }
+
+    30% {
+        transform: translate(-580px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-580px, 205px);
+        z-index: 1;
+    }
+}
+
+.moveToHand2to1 {
+    pointer-events: none;
+    animation-name: moveToHand2to1;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand2to1 {
+    0% {
+        transform: translate(2px, 259px) scale(0.65);
+    }
+
+    30% {
+        transform: translate(-580px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-580px, 205px);
+        z-index: 1;
+    }
+}
+
+.moveToHand3to1 {
+    pointer-events: none;
+    animation-name: moveToHand3to1;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand3to1 {
+    0% {
+        transform: translate(108px, 259px) scale(0.65);
+    }
+
+    30% {
+        transform: translate(-580px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-580px, 205px);
+        z-index: 223;
+    }
+}
+
+.moveToHand1to2 {
+    animation: moveToHand1to2;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand1to2 {
+    0% {
+        transform: translate(-106px, 259px) scale(0.65);
+        z-index: 223;
+    }
+    30% {
+        transform: translate(-410px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-410px, 205px);
+        /*z-index:223;*/
+    }
+}
+
+.moveToHand2to2 {
+    animation: moveToHand2to2;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand2to2 {
+    0% {
+        transform: translate(2px, 259px) scale(0.65);
+        z-index: 223;
+    }
+    30% {
+        transform: translate(-410px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-410px, 205px);
+        z-index: 1;
+    }
+}
+
+.moveToHand3to2 {
+    animation: moveToHand3to2;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand3to2 {
+    0% {
+        transform: translate(108px, 259px) scale(0.65);
+        z-index: 223;
+    }
+    30% {
+        transform: translate(-410px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-410px, 205px);
+        z-index: 1;
+    }
+}
+
+.moveToHand1to3 {
+    animation: moveToHand1to3;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand1to3 {
+    0% {
+        transform: translate(-106px, 259px) scale(0.65);
+        z-index: 223;
+    }
+    30% {
+        transform: translate(-240px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-240px, 205px);
+        /*z-index:223;*/
+    }
+}
+
+.moveToHand2to3 {
+    animation: moveToHand2to3;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand2to3 {
+    0% {
+        transform: translate(2px, 259px) scale(0.65);
+        z-index: 223;
+    }
+    30% {
+        transform: translate(-240px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-240px, 205px);
+        z-index: 1;
+    }
+}
+
+.moveToHand3to3 {
+    animation: moveToHand3to3;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToHand3to3 {
+    0% {
+        transform: translate(108px, 259px) scale(0.65);
+        z-index: 223;
+    }
+    30% {
+        transform: translate(-240px, 205px);
+        z-index: 223;
+    }
+    100% {
+        transform: translate(-240px, 205px);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.moveToOpponentHand1 {
+    pointer-events: none;
+    animation-name: moveToOpponentHand1;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToOpponentHand1 {
+    0% {
+        transform: translateY(282px) scale(0.75) translateX(6px) rotateX(180deg);
+    }
+    40% {
+        transform: translate(-220px, 400px) rotateX(360deg) scale(1.5);
+        z-index: 2;
+    }
+    100% {
+        transform: translate(-580px, 235px) rotateX(360deg);
+    }
+}
+
+.moveToOpponentHand2 {
+    animation: moveToOpponentHand2;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToOpponentHand2 {
+    0% {
+        transform: translateY(282px) scale(0.75) translateX(6px) rotateX(180deg);
+    }
+    40% {
+        transform: translate(-220px, 400px) rotateX(360deg) scale(1.5);
+        z-index: 2;
+    }
+    100% {
+        transform: translate(-410px, 235px) rotateX(360deg);
+    }
+}
+
+.moveToOpponentHand3 {
+    animation: moveToOpponentHand3;
+    animation-duration: 1.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes moveToOpponentHand3 {
+    0% {
+        z-index: 1;
+        transform: translateY(282px) scale(0.75) translateX(6px) rotateX(180deg);
+    }
+    40% {
+        transform: translate(-220px, 400px) rotateX(360deg) scale(1.5);
+        z-index: 2222;
+    }
+    100% {
+        transform: translate(-240px, 235px) rotateX(360deg);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.attackEnemyFromPosition1 {
+    animation: attackEnemyFromPosition1;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackEnemyFromPosition1 {
+    0% {
+        transform: translate(-580px, 205px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-580px, 50px) rotateX(-20deg);
+
+    }
+    60% {
+        transform: translate(-580px, 50px)  rotateX(-20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-580px, 205px);
+        z-index: 1;
+    }
+}
+
+.attackEnemyFromPosition2 {
+    animation: attackEnemyFromPosition2;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackEnemyFromPosition2 {
+    0% {
+        transform: translate(-410px, 205px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-410px, 50px) rotateX(-20deg);
+
+    }
+    60% {
+        transform: translate(-410px, 50px)  rotateX(-20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-410px, 205px);
+        z-index: 1;
+    }
+}
+
+.attackEnemyFromPosition3 {
+    animation: attackEnemyFromPosition3;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackEnemyFromPosition3 {
+    0% {
+        transform: translate(-240px, 205px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-240px, 50px) rotateX(-20deg);
+
+    }
+    60% {
+        transform: translate(-240px, 50px)  rotateX(-20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-240px, 205px);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.attackPlayerFromPosition1 {
+    animation: attackPlayerFromPosition1;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackPlayerFromPosition1 {
+    0% {
+        transform: translate(-580px, 235px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-580px, 390px) rotateX(20deg);
+
+    }
+    60% {
+        transform: translate(-580px, 390px)  rotateX(20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-580px, 235px);
+        z-index: 1;
+    }
+}
+
+.attackPlayerFromPosition2 {
+    animation: attackPlayerFromPosition2;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackPlayerFromPosition2 {
+    0% {
+        transform: translate(-410px, 235px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-410px, 390px) rotateX(20deg);
+
+    }
+    60% {
+        transform: translate(-410px, 390px)  rotateX(20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-410px, 235px);
+        z-index: 1;
+    }
+}
+
+.attackPlayerFromPosition3 {
+    animation: attackPlayerFromPosition3;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackPlayerFromPosition3 {
+    0% {
+        transform: translate(-240px, 235px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-240px, 390px) rotateX(20deg);
+
+    }
+    60% {
+        transform: translate(-240px, 390px)  rotateX(20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-240px, 235px);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.attackEnemyHeroFromPosition1 {
+    animation: attackEnemyHeroFromPosition1;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackEnemyHeroFromPosition1 {
+    0% {
+        transform: translate(-580px, 205px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-765px, 50px) rotateX(-20deg);
+
+    }
+    60% {
+        transform: translate(-765px, 50px)  rotateX(-20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-580px, 205px);
+        z-index: 1;
+    }
+}
+
+.attackEnemyHeroFromPosition2 {
+    animation: attackEnemyHeroFromPosition2;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackEnemyHeroFromPosition2 {
+    0% {
+        transform: translate(-410px, 205px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-765px, 50px) rotateX(-20deg);
+
+    }
+    60% {
+        transform: translate(-765px, 50px)  rotateX(-20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-410px, 205px);
+        z-index: 1;
+    }
+}
+
+.attackEnemyHeroFromPosition3 {
+    animation: attackEnemyHeroFromPosition3;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackEnemyHeroFromPosition3 {
+    0% {
+        transform: translate(-240px, 205px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-765px, 50px) rotateX(-20deg);
+
+    }
+    60% {
+        transform: translate(-765px, 50px)  rotateX(-20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-240px, 205px);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.attackPlayerHeroFromPosition1 {
+    animation: attackPlayerHeroFromPosition1;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackPlayerHeroFromPosition1 {
+    0% {
+        transform: translate(-580px, 235px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-765px, 390px) rotateX(20deg);
+
+    }
+    60% {
+        transform: translate(-765px, 390px)  rotateX(20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-580px, 235px);
+        z-index: 1;
+    }
+}
+
+.attackPlayerHeroFromPosition2 {
+    animation: attackPlayerHeroFromPosition2;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackPlayerHeroFromPosition2{
+    0% {
+        transform: translate(-410px, 235px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-765px, 390px) rotateX(20deg);
+
+    }
+    60% {
+        transform: translate(-765px, 390px)  rotateX(20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-410px, 235px);
+        z-index: 1;
+    }
+}
+
+.attackPlayerHeroFromPosition3 {
+    animation: attackPlayerHeroFromPosition3;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes attackPlayerHeroFromPosition3{
+    0% {
+        transform: translate(-240px, 235px);
+        z-index: 111;
+    }
+    20%{
+        /*transform: rotateX(30deg)*/
+    }
+    40% {
+        transform: translate(-765px, 390px) rotateX(20deg);
+
+    }
+    60% {
+        transform: translate(-765px, 390px)  rotateX(20deg);
+
+    }
+    90%{
+
+    }
+    100% {
+        transform: translate(-240px, 235px);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.perspective    {
+    animation: perspective 0.5s 1;
+    /*perspective-origin: 344px;*/
+    /*perspective-origin: 100px;*/
+}
+@keyframes  perspective{
+    /*20%{*/
+        /*perspective: 250px;*/
+    /*}*/
+    40%{
+        perspective: 250px;
+        z-index:111;
+    }
+    70%{
+        perspective: 250px;
+    }
+    99%{
+        perspective: 2000px;
+        z-index:111;
+    }
+   100%{
+        perspective: none;
+       animation-fill-mode: forwards;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.playerCardLockedToPosition1{
+    animation: PlayerCardLockedToPosition1;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes PlayerCardLockedToPosition1 {
+    0%{
+        transform: translate(-580px, 205px);
+        z-index: 1;
+    }
+    100%{
+        transform: translate(-580px, 205px);
+        z-index: 1;
+    }
+}
+
+.playerCardLockedToPosition2{
+    animation: playerCardLockedToPosition2;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes playerCardLockedToPosition2 {
+    0%{
+        transform: translate(-410px, 205px);
+        z-index: 1;
+    }
+    100%{
+        transform: translate(-410px, 205px);
+        z-index: 1;
+    }
+}
+
+.playerCardLockedToPosition3{
+    animation: playerCardLockedToPosition3;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes playerCardLockedToPosition3 {
+    0%{
+        transform: translate(-240px, 205px);
+        z-index: 1;
+    }
+    100%{
+        transform: translate(-240px, 205px);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+.opponentCardLockedToPosition1{
+    animation: opponentCardLockedToPosition1;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes opponentCardLockedToPosition1 {
+    0%{
+        transform: translate(-580px, 235px);
+        z-index: 1;
+    }
+    100%{
+        transform: translate(-580px, 235px);
+        z-index: 1;
+    }
+}
+
+.opponentCardLockedToPosition2{
+    animation: opponentCardLockedToPosition2;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes opponentCardLockedToPosition2 {
+    0%{
+        transform: translate(-410px, 235px);
+        z-index: 1;
+    }
+    100%{
+        transform: translate(-410px, 235px);
+        z-index: 1;
+    }
+}
+
+.opponentCardLockedToPosition3{
+    animation: opponentCardLockedToPosition3;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+@keyframes opponentCardLockedToPosition3 {
+    0%{
+        transform: translate(-240px, 235px);
+        z-index: 1;
+    }
+    100%{
+        transform: translate(-240px, 235px);
+        z-index: 1;
+    }
+}
+/*-----------------------------------------------------------------------*/
+
+
