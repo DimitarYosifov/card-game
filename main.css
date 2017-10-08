@@ -547,8 +547,8 @@ main {
 #round{
     width: 100%;
     font-size: 30px;
-    position: absolute;
-    top: 634px;
+    position: relative;
+    top: 628px;
     background: -webkit-linear-gradient(#e1ff2c, #fdf3dd);
     border: none;
     -webkit-background-clip: text;

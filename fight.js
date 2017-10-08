@@ -33,14 +33,6 @@ function start() {
     });
 }
 
-$("#clock,#endTurn").click(function () {
-    alert()
-    $("#clock,#endTurn").animate({
-        left: "+=5px"
-    }, 100).animate({
-        left: "-=5px"
-    }, 200)
-});
 
 function fillPlayerDeckForFight(done) {
     for (let i = 0; i < 10; i++) {
@@ -98,6 +90,7 @@ function newDeal() {
             setTimeout(function () {
                 if (playerActsFirst === true) {
                     $('.fight-cards').addClass('clickable')
+                    $('#endTurn,#clock').css('pointer-events', 'auto')
                 }
                 else {
                     opponentCardMovingToPosition()
@@ -317,6 +310,11 @@ function movingToHand(position) {
 }
 
 function checkButtonAction() {
+    $("#clock,#endTurn").animate({
+        left: "+=5px"
+    }, 100).animate({
+        left: "-=5px"
+    }, 200).css('pointer-events','none')
     if (playerActsFirst) {
         opponentCardMovingToPosition()
 
@@ -382,6 +380,7 @@ function opponentCardMovingToPosition() {
             }
             else {
                 $('.fight-cards').addClass('clickable')
+                $('#endTurn,#clock').css('pointer-events', 'auto')
             }
 //                isCardPlayed = false;///////////////////////////////////////////////////////////?????????????????
 
@@ -401,8 +400,13 @@ function opponentCardMovingToPosition() {
             $('.fight-cards').addClass('clickable')
 
         }
+        console.log(playerCardsInPlay);
+       let card= playerCardsPositions.findIndex(element => element === true)
+        console.log(card);
         if (playerCardsInPlay === 0) {  /////////////////////////////////if player has nothing to play
-            roundAction()
+            setTimeout(function () {
+                roundAction()
+            },500)
         }
 
 //            }, 0)
@@ -943,10 +947,10 @@ function dyingPlayerCreature(current, position) {
     }, 1000)
 
     setTimeout(function () {
-        console.log(playerCardsInAction);
+        // console.log(playerCardsInAction);
         playerCardsInAction[position].remove()
         playerCardsInAction[position] = false
-        console.log(playerCardsInAction);
+        // console.log(playerCardsInAction);
 
         playerCardsInPlay--;
     }, 1000)     ////1000
@@ -989,7 +993,7 @@ function rearangeCreaturesAfterTurn() {
                 $(playerCardsInAction[1]).addClass('rearrange2to1 playerCardLockedToPosition1');
             }
             if (playerCardsInAction[2] !== false) {
-                console.log('555')
+                // console.log('555')
 
                 if (playerCardsInAction[1] === false) {
                     $(playerCardsInAction[2]).addClass('rearrange3to1 playerCardLockedToPosition1');
@@ -1001,16 +1005,16 @@ function rearangeCreaturesAfterTurn() {
         }
         if (playerCardsInAction[1] === false) {
             if (playerCardsInAction[2] !== false) {
-                console.log('666')
+                // console.log('666')
                 $(playerCardsInAction[2]).addClass('rearrange3to2 playerCardLockedToPosition2');
             }
         }
 
-        console.log(playerCardsInAction);
-        console.log(playerCardsInAction[0]);
-        console.log(playerCardsInAction[1]);
-        console.log(playerCardsInAction[2]);
-        console.log(playerCardsInAction);
+        // console.log(playerCardsInAction);
+        // console.log(playerCardsInAction[0]);
+        // console.log(playerCardsInAction[1]);
+        // console.log(playerCardsInAction[2]);
+        // console.log(playerCardsInAction);
     }
 
     function opponentCreaturesRearrange() {
@@ -1055,3 +1059,5 @@ function nextRound() {
         round++
     },2000)
 }
+
+
