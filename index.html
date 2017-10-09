@@ -27,6 +27,8 @@
         });
     </script>
     <script src="fight.js"></script>
+    <script src="loadingDecksForFIght.js"></script>
+
 </head>
 <body onload="start()">
 <div id="main-container">
@@ -36,18 +38,18 @@
                 <div id="opponent-hero-frame">
                     <div id="opponent-hero-container" class="hero">
                         <div class="rating-stars-container">
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
                         </div>
-                        <h1 class="fight-card-name">Bot1</h1>
+                        <h1 class="fight-card-name"></h1>
                         <img class="fight-card " src="imgs/robot-hero1.jpg">
                         <div class="card-state-container">
                             <div class="card-stats-container">
-                                <span class="opponent-hero-energy">3</span>
-                                <span class="opponent-hero-health">23</span>
+                                <span class="opponent-hero-energy"></span>
+                                <span class="opponent-hero-health"></span>
                             </div>
                         </div>
                     </div>
@@ -61,18 +63,18 @@
                 <div id="player-hero-frame">
                     <div id="player-hero-container" class="hero">
                         <div class="rating-stars-container">
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
-                            <img class="rating-star-img" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
+                            <img class="rating-star-img" style="display: none" src="imgs/full-star.png"/>
                         </div>
-                        <h1 class="fight-card-name">bot</h1>
+                        <h1 class="fight-card-name"></h1>
                         <img class="fight-card " src="imgs/robot-hero1.jpg">
                         <div class="card-state-container">
                             <div class="card-stats-container">
-                                <span class="player-hero-energy">3</span>
-                                <span class="player-hero-health">22</span>
+                                <span class="player-hero-energy"></span>
+                                <span class="player-hero-health"></span>
                             </div>
                         </div>
                     </div>
@@ -94,7 +96,7 @@
             <div id="damage7"></div>
             <div id="damage8"></div>
         </section>
-        <div id="round">Round</div>
+        <div id="message">Round</div>
 
     </main>
     <img id="fire-down" src="imgs/fire2.gif"/>
@@ -102,7 +104,6 @@
     <img id="fire-left" src="imgs/fire2.gif"/>
     <img id="fire-right" src="imgs/fire2.gif"/>
 </div>
-
 
 
 </body>

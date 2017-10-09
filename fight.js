@@ -1,5 +1,5 @@
 'use strict';
-let playerActsFirst = false;
+let playerActsFirst = true;
 let playerCardsOnTable = 0;
 let playerCardsInPlay = 0;////////////////////////////////////////////////////cards ready to get into play
 let playerCardsPositions = [false, false, false]
@@ -7,10 +7,9 @@ let playerFightCards = []/////////////////////////////////////////////arr with a
 let playerDeck = []///////////////////////////////////////////////////arr with all player's creatures stats
 let playerCardsInAction = []
 let isCardPlayed = false;
-
+let playerCardsToBePlayed = 0
 let opponentCardsOnTable = 0;
 let opponentCardsInPlay = 0
-//    let opponentCardsPositions = [false, false, false]
 let opponentFightCards = []
 let opponentDeck = []
 let opponentCardsInAction = []
@@ -18,74 +17,101 @@ let opponentCardsInAction = []
 let newDealDelay = 500;
 let isThereDyingCreature = false
 let round = 1
+let deadHero = false;
 
 function start() {
     $('main').effect('bounce', 500)
+    showWhoActsFirst()
     fillPlayerDeckForFight(function done() {
         newPlayerCardIntoCreature(function done() {
-            setTimeout(function () {
-                newDeal()
-            }, 500)
+            fillPlayerHeroStats(function done() {
+                setTimeout(function () {
+                    newDeal()
+                }, 500)
+            })
         })
     });
     fillOpponentDeckForFight(function done() {
-        newOpponentCardIntoCreature()
+        newOpponentCardIntoCreature(function done() {
+            fillOpponentHeroStats()
+        })
     });
 }
 
+function fillOpponentHeroStats() {
+    let hero = $('#opponent-hero-container')
+    hero.find('.fight-card-name').text(currentFightOpponentHeroStats.name)
+    hero.find('.opponent-hero-energy').text(currentFightOpponentHeroStats.energy)
+    hero.find('.opponent-hero-health').text(currentFightOpponentHeroStats.health)
+    hero.find('.rating-star-img').css('display', 'none')
+    for (let i = 0; i < currentFightOpponentHeroStats.level; i++) {
+        hero.find('.rating-star-img').eq(i).css('display', 'inline-flex')
+    }
+
+}
+
+function fillPlayerHeroStats(done) {
+    let hero = $('#player-hero-container')
+    hero.find('.fight-card-name').text(savedPlayerHeroStats.name)
+    hero.find('.player-hero-energy').text(savedPlayerHeroStats.energy)
+    hero.find('.player-hero-health').text(savedPlayerHeroStats.health)
+    hero.find('.rating-star-img').css('display', 'none')
+    for (let i = 0; i < savedPlayerHeroStats.level; i++) {
+        hero.find('.rating-star-img').eq(i).css('display', 'inline-flex')
+    }
+    done()
+}
 
 function fillPlayerDeckForFight(done) {
-    for (let i = 0; i < 10; i++) {
-        let current = {
-            level: 4,
-            name: 'Snake',
-            src: "imgs/snake.jpg",
-            attack: 4,
-            health: 5
-        }
-        playerDeck.push(current)
-        if (i === 9) {
+    let arr = new Array(100)
+    for (let i = 0; i < savedPlayerDeck.length; i++) {
+        let rand = Math.floor(Math.random() * 100) + 1
+        arr.splice(rand, 0, savedPlayerDeck[i])
+        if (i === savedPlayerDeck.length - 1) {
+            playerDeck = arr.filter(e=>e !== '');
             done()
         }
     }
 }
 
 function fillOpponentDeckForFight(done) {
-    for (let i = 0; i < 10; i++) {
-        let current = {
-            level: 2,
-            name: 'Eagle',
-            src: "imgs/eagle.jpg",
-            attack: 3,
-            health: 5
-        }
-        opponentDeck.push(current)
-        if (i === 9) {
+    let arr = new Array(100)
+    for (let i = 0; i < currentFightOpponenDeck.length; i++) {
+        let rand = Math.floor(Math.random() * 100) + 1
+        arr.splice(rand, 0, currentFightOpponenDeck[i])
+        if (i === currentFightOpponenDeck.length - 1) {
+            opponentDeck = arr.filter(e=>e !== '');
             done()
         }
     }
 }
 
 function newDeal() {
+    if (deadHero) {
+        return
+    }
     let position = playerCardsPositions.findIndex(element => element === false)
 //        console.log('new deal')
     playerCardsPositions[position] = true
-
     position++
 
-
     if (position > 0 && playerCardsOnTable !== 10) {
+
+        playerCardsToBePlayed++
+
+
 //            console.log('fuuucking true')
         setTimeout(function () {
 //                playerCardsOnTable++
+
             movingToHand('position' + position)
+
 
         }, 500)
 
     }
     else {
         nextRound()
-//            console.log(isCardPlayed);
         if (playerCardsInPlay < 3 && isCardPlayed === false) {
             setTimeout(function () {
                 if (playerActsFirst === true) {
@@ -95,37 +121,33 @@ function newDeal() {
                 else {
                     opponentCardMovingToPosition()
                 }
-
-
             }, 0)
         }
         else if (playerCardsInPlay === 3 && playerActsFirst === false) {
             opponentCardMovingToPosition()
-
         }
-
     }
-//        console.log($('.player-cards-left').text());
-    console.log(playerCardsInPlay);
+    // console.log(playerCardsInPlay);
     if (playerCardsInPlay === 3) {
         setTimeout(function () {
             $('#endTurn,#clock').css('pointer-events', 'auto')
 
         }, 1900)
     }
+    let card = playerCardsPositions.findIndex(element => element === true)
+    // console.log(playerCardsToBePlayed);
+    if ($('.player-cards-left').text() === '0 cards left' && playerCardsToBePlayed === 0) {
+        if (playerActsFirst) {
+            console.log('666');
+            opponentCardMovingToPosition()
+        }
+        else {
+            console.log('555');
+            roundAction()
+            // $('#endTurn,#clock').css('pointer-events', 'auto')
+        }
 
-    if ($('.player-cards-left').text() === '0 cards left') {
-        $('#endTurn,#clock').css('pointer-events', 'auto')
     }
-//        newPlayerCardIntoCreature('position1', function drawSecondCard() {
-//            newPlayerCardIntoCreature('position2', function drawThirdCard() {
-//                newPlayerCardIntoCreature('position3', function hideBoxShadow() {
-//                    $('#player-card-back2-container').css('display', 'none')
-//                })
-//            })
-//        });
-
-//        console.log('newdeal')
 }
 
 function newPlayerCardIntoCreature(done) {
@@ -141,8 +163,12 @@ function newPlayerCardIntoCreature(done) {
         }
         rating.appendTo(creature)
         let name = $("<h1>").addClass("fight-card-name").addClass("hideWhenFaceOff").html(playerDeck[i].name).appendTo(creature)
+
+
         let src = '' + (playerDeck[i].src)
         let pic = $("<img>").attr("src", src).addClass("fight-card").appendTo(creature)
+
+
         let state = $("<div>").addClass("card-state-container").addClass("hideWhenFaceOff").appendTo(creature);
         let stats = $("<div>").addClass("card-stats-container").appendTo(state);
         let attack = $("<span>").addClass("attack").html(playerDeck[i].attack).appendTo(stats)
@@ -156,7 +182,7 @@ function newPlayerCardIntoCreature(done) {
     }
 }
 
-function newOpponentCardIntoCreature() {
+function newOpponentCardIntoCreature(done) {
     for (let i = 0; i < 10; i++) {
         let current = opponentDeck[i]
 //            console.log(playerDeck[i])
@@ -169,8 +195,13 @@ function newOpponentCardIntoCreature() {
         }
         rating.appendTo(creature)
         let name = $("<h1>").addClass("fight-card-name").addClass("hideWhenFaceOff").html(opponentDeck[i].name).appendTo(creature)
+
+
         let src = '' + (opponentDeck[i].src)
+        // console.log(opponentDeck[i].src);
         let pic = $("<img>").attr("src", src).addClass("fight-card").appendTo(creature)
+
+
         let state = $("<div>").addClass("card-state-container").addClass("hideWhenFaceOff").appendTo(creature);
         let stats = $("<div>").addClass("card-stats-container").appendTo(state);
         let attack = $("<span>").addClass("attack").html(opponentDeck[i].attack).appendTo(stats)
@@ -178,15 +209,15 @@ function newOpponentCardIntoCreature() {
         let stain = $("<img>").attr("src", "imgs/blood-stain1.gif").addClass("blood-stain1").addClass("hideWhenFaceOff").appendTo(creature)
         creature.appendTo(playerCards)
         opponentFightCards.push(creature)
-//            if (i === 9) {
-//                done()
-//            }
+        if (i === 9) {
+            done()
+        }
     }
 }
 
 function movingToHand(position) {
-    console.log(playerFightCards);
-    console.log(playerCardsOnTable);
+    // console.log(playerFightCards);
+    // console.log(playerCardsOnTable);
     $('.fight-cards').removeClass('clickable')
 //        $('#fight-section').css('pointer-events', 'none')
 //        console.log(position)
@@ -199,8 +230,8 @@ function movingToHand(position) {
 //        console.log(position)
 
     $('#player-cards').css({
-        'perspective-origin':'920px',
-        'perspective':'572px'
+        'perspective-origin': '920px',
+        'perspective': '572px'
     })
 
 
@@ -264,9 +295,11 @@ function movingToHand(position) {
 //                $('#endTurn,#clock').css('pointer-events', 'auto')
 //                this.style.webkitAnimationPlayState = "paused";
             if ($(this).hasClass('clickable')) {
+                playerCardsToBePlayed--
                 $('#endTurn,#clock').css('pointer-events', 'auto')
 //                    console.log('oi');
                 playerCardsInAction.push(playerFightCards[current])
+
                 playerCardsInPlay++
 //                    if(playerCardsInPlay!==3){
                 playerCardsPositions[position.substring(8, 9) - 1] = false
@@ -278,6 +311,7 @@ function movingToHand(position) {
                 isCardPlayed = true;
 //                    console.log('iscardplayed ==true')
                 $('.fight-cards').removeClass('clickable')
+                playerFightCards[current] = ''
             }
         })
 
@@ -314,7 +348,7 @@ function checkButtonAction() {
         left: "+=5px"
     }, 100).animate({
         left: "-=5px"
-    }, 200).css('pointer-events','none')
+    }, 200).css('pointer-events', 'none')
     if (playerActsFirst) {
         opponentCardMovingToPosition()
 
@@ -329,6 +363,14 @@ function checkButtonAction() {
 
 function opponentCardMovingToPosition() {
 
+    function opponentCardNumberDecrease() {
+        $('.opponent-cards-left').text(10 - opponentCardsOnTable + ' cards left');
+        if ($('.opponent-cards-left').text() === '0 cards left') {
+
+            $('#opponent-card-back-container').css('display', 'none')
+        }
+    }
+
 
     $('#endTurn,#clock').css('pointer-events', 'none')
     if (opponentCardsInPlay !== 3) {
@@ -338,7 +380,7 @@ function opponentCardMovingToPosition() {
             return;
         }
 
-        let src = '' + $(opponentFightCards[0]).find('.fight-card').attr("src");
+        let src = '' + $(opponentFightCards[opponentCardsOnTable]).find('.fight-card').attr("src");
         let current = opponentCardsOnTable;
         opponentFightCards[current].find('.fight-card').attr('src', 'imgs/card-back.jpg');
         opponentFightCards[current].find('.hideWhenFaceOff').css('display', 'none');
@@ -352,27 +394,31 @@ function opponentCardMovingToPosition() {
                 opponentFightCards[opponentCardsOnTable].addClass('moveToOpponentHand1').css('display', 'block');
                 opponentCardsInPlay++;
                 opponentCardsOnTable++;
+                opponentCardNumberDecrease()
+                // console.log(' opponentCardsOnTable ' + opponentCardsOnTable);
             }
             else if (opponentCardsInPlay === 1) {
                 opponentFightCards[opponentCardsOnTable].addClass('moveToOpponentHand2').css('display', 'block');
                 opponentCardsInPlay++;
                 opponentCardsOnTable++
+                opponentCardNumberDecrease()
+                // console.log(' opponentCardsOnTable ' + opponentCardsOnTable);
             }
             else if (opponentCardsInPlay === 2) {
                 opponentFightCards[opponentCardsOnTable].addClass('moveToOpponentHand3').css('display', 'block');
                 opponentCardsInPlay++;
                 opponentCardsOnTable++
+                opponentCardNumberDecrease()
+                // console.log(' opponentCardsOnTable ' + opponentCardsOnTable);
             }
-        },1000)
+        }, 0)/////////////////////////////1000 originally
 
 
-
-
-        $('.opponent-cards-left').text(10 - opponentCardsOnTable + ' cards left');
-        if ($('.opponent-cards-left').text() === '0 cards left') {
-            alert('0 cards left')
-            $('#opponent-card-back-container').css('display', 'none')
-        }
+        // $('.opponent-cards-left').text(10 - opponentCardsOnTable + ' cards left');
+        // if ($('.opponent-cards-left').text() === '0 cards left') {
+        //     alert('0 cards left')
+        //     $('#opponent-card-back-container').css('display', 'none')
+        // }
 
         setTimeout(function () {
             if (playerActsFirst === true) {
@@ -401,12 +447,12 @@ function opponentCardMovingToPosition() {
 
         }
         console.log(playerCardsInPlay);
-       let card= playerCardsPositions.findIndex(element => element === true)
+        let card = playerCardsPositions.findIndex(element => element === true)
         console.log(card);
-        if (playerCardsInPlay === 0) {  /////////////////////////////////if player has nothing to play
+        if (card === -1) {  /////////////////////////////////if player has nothing to play
             setTimeout(function () {
                 roundAction()
-            },500)
+            }, 500)
         }
 
 //            }, 0)
@@ -830,14 +876,29 @@ function playerCardTakesHit(current, amountOfDamage, position) {
     }
 }
 
+
 function opponentHeroTakesHit(amountOfDamage) {
     let current = $('#opponent-hero-container')
     let health = current.find('.opponent-hero-health').text()
     setTimeout(function () {
         current.find('.opponent-hero-health').text(health - amountOfDamage)
+        function callback() {
+            $('#opponent-hero-container').effect('puff', 2000, function () {
+                $("#opponent-hero-container").removeAttr("style").hide().fadeIn();
+                resetForNewBattle('opponentHeroDied')
+            })
+        };
+
         if (health - amountOfDamage <= 0) {
-//                $('#player-hero-container').toggle('explode',{pieces: 8}, 500)
-//                $('#player-hero-frame').toggle('explode',{pieces: 9}, 500 )
+            if (!deadHero) {
+                $('#player-cards,.fight-cards,#opponent-card-back-container,.opponent-cards-left,#endTurn,#clock').hide()
+                deadHero = true
+                $('#opponent-hero-container').toggle('pulsate', 3000, callback)
+                $('#opponent-hero-frame').animate({
+                    left: '+=450px',
+                    top: '+=210px'
+                }, 400)
+            }
         }
     }, 200)
 }
@@ -848,16 +909,27 @@ function playerHeroTakesHit(amountOfDamage) {
     setTimeout(function () {
         current.find('.player-hero-health').text(health - amountOfDamage)
         function callback() {
-            $("#player-hero-container").removeAttr("style").hide().fadeIn();
-        };
-        if (health - amountOfDamage <= 20) {
-//                $('#player-hero-container').toggle('pulsate', 1000, callback)//.effect('puff',1000)
-            setTimeout(function () {
+            $('#player-hero-container').effect('puff', 2000, function () {
 
-            }, 1000)
+                $("#player-hero-container").removeAttr("style").hide().fadeIn();
+                resetForNewBattle('playerHeroDied')
+            })
+        }
+
+        if (health - amountOfDamage <= 0) {
+            if (!deadHero) {
+                $('#opponent-cards,.fight-cards,#player-card-back2-container,.player-cards-left,#endTurn,#clock').hide()
+                deadHero = true
+                $('#player-hero-container').toggle('pulsate', 3000, callback)
+                $('#player-hero-frame').animate({
+                    left: '+=450px',
+                    top: '+=100px'
+                }, 400)
+            }
         }
     }, 200)
 }
+
 
 function playerCardHitsOpponentCard(current, position, perspectiveOrigin) {
 //        console.log(perspectiveOrigin)
@@ -973,6 +1045,8 @@ function dyingOpponentCreature(current, position) {
         opponentCardsInAction[position].remove()
         opponentCardsInAction[position] = false
         opponentCardsInPlay--;
+        console.log(opponentDeck);
+        // debugger
     }, 1000)
 }
 
@@ -1052,12 +1126,74 @@ function rearangeCreaturesAfterTurn() {
 
 
 function nextRound() {
-    $('#round').text('Round '+round).css('display', 'block').effect('slide')
+    $('#message').text('Round ' + round).css('display', 'block').effect('slide')
     setTimeout(function () {
-        $('#round').effect('drop')
+        $('#message').effect('drop')
         // $('#round').css('display', 'none')
         round++
-    },2000)
+    }, 2000)
 }
 
+function showWhoActsFirst() {
+    let rand = Math.floor((Math.random() * 2) + 1)
+    let first;
+    if (rand === 1) {
+        first = 'You act first'
+        playerActsFirst = true
+    }
+    else {
+        first = 'Opponent acts first'
+        playerActsFirst = false
+    }
+    setTimeout(function () {
+        $('#message').text(first).css('display', 'block').effect('slide')
+    }, 3000)
 
+    setTimeout(function () {
+        $('#message').effect('drop')
+        // $('#round').css('display', 'none')
+        // round++
+    }, 5000)
+}
+
+function resetForNewBattle(heroDied) {
+    playerActsFirst = true;
+    playerCardsOnTable = 0;
+    playerCardsInPlay = 0;////////////////////////////////////////////////////cards ready to get into play
+    playerCardsPositions = [false, false, false]
+    playerFightCards = []/////////////////////////////////////////////arr with all player's creatures
+    playerDeck = []///////////////////////////////////////////////////arr with all player's creatures stats
+    playerCardsInAction = []
+    isCardPlayed = false;
+    playerCardsToBePlayed = 0
+    opponentCardsOnTable = 0;
+    opponentCardsInPlay = 0
+    opponentFightCards = []
+    opponentDeck = []
+    opponentCardsInAction = []
+    newDealDelay = 500;
+    isThereDyingCreature = false
+    round = 1
+    deadHero = false;
+    $('#player-cards,#opponent-cards,.fight-cards,#opponent-card-back-container,#player-card-back2-container,.player-cards-left,.opponent-cards-left,#endTurn,#clock').show()
+    $('.fight-cards').remove()
+    if (heroDied === 'playerHeroDied') {
+        $('#player-hero-frame').css({
+            top: '51px',
+            left: '0px'
+        })
+    }
+    else {
+        $('#opponent-hero-frame').css({
+            top: '-=210px',
+            left: '0px'
+        })
+    }
+
+    $('.player-cards-left').text('10 cards left')
+    $('.opponent-cards-left').text('10 cards left')
+    setTimeout(function () {
+        start()
+    }, 500)
+
+}
