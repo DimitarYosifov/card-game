@@ -2,31 +2,69 @@
 let playerActsFirst = true;
 let playerCardsOnTable = 0;
 let playerCardsInPlay = 0;////////////////////////////////////////////////////cards ready to get into play
-let playerCardsPositions = [false, false, false]
-let playerFightCards = []/////////////////////////////////////////////arr with all player's creatures
-let playerDeck = []///////////////////////////////////////////////////arr with all player's creatures stats
-let playerCardsInAction = []
+let playerCardsPositions = [false, false, false];
+let playerFightCards = [];   /////////////////////////////////////////////arr with all player's creatures
+let playerDeck = [];   ///////////////////////////////////////////////////arr with all player's creatures stats
+let playerCardsInAction = [];
 let isCardPlayed = false;
-let playerCardsToBePlayed = 0
+let playerCardsToBePlayed = 0;
 let opponentCardsOnTable = 0;
-let opponentCardsInPlay = 0
-let opponentFightCards = []
-let opponentDeck = []
-let opponentCardsInAction = []
+let opponentCardsInPlay = 0;
+let opponentFightCards = [];
+let opponentDeck = [];
+let opponentCardsInAction = [];
 
 let newDealDelay = 500;
-let isThereDyingCreature = false
-let round = 1
+let isThereDyingCreature = false;
+let round = 1;
 let deadHero = false;
+let screenWidth;
+let screenHeight;
 
 function start() {
-    $('main').effect('bounce', 500)
+
+
+
+
+    // $(function() {
+    //     $('#main-container').css({
+    //         'position' : 'absolute',
+    //         'left' : '50%',
+    //         'top' : '50%',
+    //         'margin-left' : -$('#main-container').outerWidth()/2,
+    //         'margin-top' : -$('#main-container').outerHeight()/2
+    //     });
+    // });
+    //
+    //
+    // screenHeight = window.innerHeight
+    // screenWidth = window.innerWidth
+    // let container=$('#main-container')
+    // let newWidth=screenWidth/container.width()
+    // let newHeight=screenHeight/container.height()
+    // console.log(screenWidth);
+    //
+    // container.css({
+    //     transform:'scaleX('+newWidth+') scaleY('+newHeight+')',
+    // })
+    // console.log( container.width())
+
+
+
+
+    // console.log(window.availWidth)
+    // $('#main-container')
+
+
+    $('#main').effect('bounce', 500)
     showWhoActsFirst()
     fillPlayerDeckForFight(function done() {
         newPlayerCardIntoCreature(function done() {
             fillPlayerHeroStats(function done() {
                 setTimeout(function () {
                     newDeal()
+                    victory()
+
                 }, 500)
             })
         })
@@ -1196,4 +1234,24 @@ function resetForNewBattle(heroDied) {
         start()
     }, 500)
 
+}
+
+
+function victory() {
+    $('#gloriousVictory').addClass('victory')
+    $('#fight-section').css('display','none')
+    $('.inFightBorderFire').css('display','none')
+    $('#fightRewardContainer').css('display','block')
+    $('body #main').css('background','black')
+
+    let reward=16
+    let tempReward=0
+    let interval=setInterval(function () {
+        $('#reward').html(tempReward)
+
+        if(tempReward===reward){
+            clearInterval(interval)
+        }
+        tempReward++
+    },100)
 }

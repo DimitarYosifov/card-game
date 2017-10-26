@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="fightAnimations.css">
     <script
             src="https://code.jquery.com/jquery-3.2.1.js"
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
@@ -29,10 +30,11 @@
     <script src="fight.js"></script>
     <script src="loadingDecksForFIght.js"></script>
 
+
 </head>
 <body onload="start()">
 <div id="main-container">
-    <main>
+    <main id="main">
         <section id="fight-section">
             <div id="opponent-cards">
                 <div id="opponent-hero-frame">
@@ -99,10 +101,22 @@
         <div id="message">Round</div>
 
     </main>
-    <img id="fire-down" src="imgs/fire2.gif"/>
-    <img id="fire-up" src="imgs/fire2.gif"/>
-    <img id="fire-left" src="imgs/fire2.gif"/>
-    <img id="fire-right" src="imgs/fire2.gif"/>
+    <img id="fire-down" class="inFightBorderFire" src="imgs/fire2.gif"/>
+    <img id="fire-up" class="inFightBorderFire" src="imgs/fire2.gif"/>
+    <img id="fire-left" class="inFightBorderFire" src="imgs/fire2.gif"/>
+    <img id="fire-right" class="inFightBorderFire" src="imgs/fire2.gif"/>
+
+    <div id="fightRewardContainer">
+        <img id="flippingCoin" src="imgs/flipping-coin.gif" height="202" width="207"/>
+        <div id="multiply">x</div>
+        <span id="reward"></span>
+        <span id="gloriousVictory">Glorious Victory</span>
+        <div id="victoryFrame">
+            <img src="imgs/victoryFrame.png" height="169" width="629"/>
+        </div>
+    </div>
+
+
 </div>
 
 
