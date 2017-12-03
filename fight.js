@@ -1238,20 +1238,20 @@ function resetForNewBattle(heroDied) {
 
 
 function victory() {
-    $('#gloriousVictory').addClass('victory')
-    $('#fight-section').css('display','none')
-    $('.inFightBorderFire').css('display','none')
-    $('#fightRewardContainer').css('display','block')
-    $('body #main').css('background','black')
-
-    let reward=16
-    let tempReward=0
-    let interval=setInterval(function () {
-        $('#reward').html(tempReward)
-
-        if(tempReward===reward){
-            clearInterval(interval)
-        }
-        tempReward++
-    },100)
+    // $('#gloriousVictory').addClass('victory')
+    // $('#fight-section').css('display','none')
+    // $('.inFightBorderFire').css('display','none')
+    // $('#fightRewardContainer').css('display','block')
+    // $('body #main').css('background','black')
+    //
+    // let reward=16
+    // let tempReward=0
+    // let interval=setInterval(function () {
+    //     $('#reward').html(tempReward)
+    //
+    //     if(tempReward===reward){
+    //         clearInterval(interval)
+    //     }
+    //     tempReward++
+    // },100)
 }
